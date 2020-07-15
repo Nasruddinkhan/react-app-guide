@@ -9,7 +9,8 @@ const App  = props =>  {
         { name:'Jalaluddin', age:23}
       ]
     });
-
+const [otherState, setOtherState] = useState('something else');
+console.log(otherState, employeeState);
 const changeNameHandler = () => {
   console.log('switch name');
   setEmployeeState({
