@@ -1,46 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import './App.css';
 import Employee from './Employee/Employee'
-const App  = props =>  {
-   const [ employeeState, setEmployeeState ] = useState({
-      employee: [
-        { name:'Nasruddin', age:27},
-        { name:'Anas', age:10},
-        { name:'Jalaluddin', age:23}
-      ]
-    });
-const [otherState, setOtherState] = useState('something else');
-console.log(otherState, employeeState);
-const changeNameHandler = () => {
+class App  extends Component  {
+state = {
+  employee: [
+    { name:'Nasruddin', age:27},
+    { name:'Anas', age:10},
+    { name:'Jalaluddin', age:23}
+  ]
+};
+
+ changeNameHandler = (newName) => {
   console.log('switch name');
-  setEmployeeState({
+  this.setState({
     employee: [
-      { name:'Jalaluddin', age:27},
+      { name:newName, age:27},
       { name:'Anas', age:10},
       { name:'Nasruddin', age:23}
     ]
   });
 };
 
- //render() {
+ render() {
   return (
     <div className="App">
       <h1>Hi Nasruddin, <br/> This is your first react App </h1>
       <p>It's is paragraph</p>
-      <button onClick={changeNameHandler}>Switch Name</button>
+      <button onClick={this.changeNameHandler.bind(this, 'Jallu khana')}>Switch Name</button>
       <Employee 
-        name={employeeState.employee[0].name} 
-        age={employeeState.employee[0].age}> My Hobbies : Playing cricket</Employee>
+        name={this.state.employee[0].name} 
+        age={this.state.employee[0].age} click={this.changeNameHandler.bind(this, 'Nasruddin khan')}> My Hobbies : Playing cricket</Employee>
       <Employee 
-        name={employeeState.employee[1].name}
-        age = {employeeState.employee[1].age}/>
+        name={this.state.employee[1].name}
+        age = {this.state.employee[1].age}/>
       <Employee 
-        name={employeeState.employee[2].name} 
-        age={employeeState.employee[2].age}/>
+        name={this.state.employee[2].name} 
+        age={this.state.employee[2].age}/>
     </div>
   );
-//  }
-//  return React.createElement('div', {className : 'App'},  React.createElement('h1', null, 'Hi', '\ Nasruddin, <br/> This is your first react App '));
+  }
+
 };
 
 export default App ;
