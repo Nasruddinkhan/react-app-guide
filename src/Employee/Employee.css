@@ -1,0 +1,8 @@
+.Employee {
+    width: 60%;
+    padding: 16px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #BBB;
+    text-align: center;
+    margin: 15px auto;
+}
