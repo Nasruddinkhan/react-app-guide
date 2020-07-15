@@ -4,32 +4,38 @@ import Employee from './Employee/Employee'
 class App  extends Component  {
 state = {
   employee: [
-    { name:'Nasruddin', age:27},
-    { name:'Anas', age:10},
-    { name:'Jalaluddin', age:23}
-  ]
+    { id:'NK5050747', name:'Nasruddin', age:27},
+    { id:'AK5050747', name:'Anas', age:10},
+    { id: 'JK5050747', name:'Jalaluddin', age:23}
+  ],
+  showEmployee: false
+};
+deleteEmployeeHandler = (empIndex) => {
+  console.log(empIndex);
+  const employee = [...this.state.employee];
+  employee.splice(empIndex, 1)
+  this.setState({employee:employee}); 
+}
+showtoggleEmployeeHandler = () =>{
+  const showEmp = this.state.showEmployee;
+  this.setState({showEmployee :!showEmp});
+}
+changeNameEventHandler = (event, id ) => {
+  console.log('switch name', id);
+  const empIndex =  this.state.employee.findIndex( emp =>{
+                      return emp.id === id;
+                    });
+  const emp = {
+        ...this.state.employee[empIndex]
+      };
+  emp.name = event.target.value;
+  const employees = [...this.state.employee]
+  employees[empIndex] = emp;
+  this.setState({
+  employee:employees
+  });
 };
 
- changeNameHandler = (newName) => {
-  console.log('switch name');
-  this.setState({
-    employee: [
-      { name:newName, age:27},
-      { name:'Anas', age:10},
-      { name:'Nasruddin', age:23}
-    ]
-  });
-};
-changeNameEventHandler = (event) => {
-  console.log('switch name');
-  this.setState({
-    employee: [
-      { name:event.target.value, age:27},
-      { name:'Anas', age:10},
-      { name:'Jalaluddin', age:23}
-    ]
-  });
-};
  render() {
   const btnStyle = {
     backgroundColor: 'white',
@@ -39,23 +45,35 @@ changeNameEventHandler = (event) => {
     cursor: 'pointer',
     borderRadius:'5px'
   };
-  return (
-    <div className="App">
-      <h1>Hi Nasruddin, <br/> This is your first react App </h1>
-      <p>It's is paragraph</p>
-      <button style={btnStyle} onClick={() => this.changeNameHandler('Jallu khana')}>Switch Name</button>
-      <Employee 
-        name={this.state.employee[0].name} 
-        change={this.changeNameEventHandler}
-        age={this.state.employee[0].age} click={ ()=> this.changeNameHandler( 'Nasruddin khan')}> My Hobbies : Playing cricket</Employee>
-      <Employee 
-        name={this.state.employee[1].name}
-        age = {this.state.employee[1].age}/>
-      <Employee 
-        name={this.state.employee[2].name} 
-        age={this.state.employee[2].age}/>
+  
+  let  employee = null;
+  if ( this.state.showEmployee ) {
+    employee = (
+    <div>
+      {this.state.employee.map( (emp, index) => {
+          return <Employee
+                  name={emp.name}
+                  age={emp.age}
+                  key={emp.id}
+                  click={() => this.deleteEmployeeHandler(index)}
+                  change={(event) => this.changeNameEventHandler(event, emp.id)}
+                />
+        })}
     </div>
-  );
+    )
+  }
+
+  return (
+      <div className="App">
+        <h1>Hi Nasruddin, <br/> This is your first react App </h1>
+        <p>It's is paragraph</p>
+        <button style={btnStyle}
+        // onClick={() => this.changeNameHandler('Jallu khana')}
+        onClick={this.showtoggleEmployeeHandler}
+        >Show Toggle </button>
+        {employee}
+      </div>
+    );
   }
 
 };
