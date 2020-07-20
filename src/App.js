@@ -38,7 +38,7 @@ changeNameEventHandler = (event, id ) => {
 };
 
  render() {
-  const btnStyle = {
+  /* const btnStyle = {
     backgroundColor: 'green',
     color:'white',
     font: 'inherit',
@@ -50,9 +50,10 @@ changeNameEventHandler = (event, id ) => {
       backgroundColor:'lightgreen',
       color:'black'
     }
-  };
+  }; */
   
   let  employee = null;
+  let btnClass = '';
   if ( this.state.showEmployee ) {
     employee = (
     <div>
@@ -67,11 +68,12 @@ changeNameEventHandler = (event, id ) => {
         })}
     </div>
     )
-    btnStyle.backgroundColor = 'red';
+   /*  btnStyle.backgroundColor = 'red';
     btnStyle[':hover'] ={
       backgroundColor:'lightgreen',
       color:'black'
-    }
+    } */
+    btnClass = classes.Red;
   }
 const assignedClasses  = [];
     if(this.state.employee.length <=2){
@@ -84,9 +86,9 @@ const assignedClasses  = [];
   return (
       <div className={classes.App}>
         <h1>Hi Nasruddin, <br/> This is your first react App </h1>
-        <p className={classes.join(' ')}>It's is paragraph</p>
-        <button style={btnStyle}
-        // onClick={() => this.changeNameHandler('Jallu khana')}
+        <p className={assignedClasses.join(' ')}>It's is paragraph</p>
+        <button className={btnClass}
+        //style={btnStyle}  onClick={() => this.changeNameHandler('Jallu khana')}
         onClick={this.showtoggleEmployeeHandler}
         >Show Toggle </button>
         {employee}
