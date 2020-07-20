@@ -1,5 +1,6 @@
 import React, { useState, Component } from 'react';
-import './App.css';
+import classes from './App.css';
+import Radium from 'radium'
 import Employee from './Employee/Employee'
 class App  extends Component  {
 state = {
@@ -38,12 +39,17 @@ changeNameEventHandler = (event, id ) => {
 
  render() {
   const btnStyle = {
-    backgroundColor: 'white',
+    backgroundColor: 'green',
+    color:'white',
     font: 'inherit',
     border: '1px solid #BBB',
     padding: '8px',
     cursor: 'pointer',
-    borderRadius:'5px'
+    borderRadius:'5px',
+    ':hover':{
+      backgroundColor:'lightgreen',
+      color:'black'
+    }
   };
   
   let  employee = null;
@@ -61,12 +67,24 @@ changeNameEventHandler = (event, id ) => {
         })}
     </div>
     )
+    btnStyle.backgroundColor = 'red';
+    btnStyle[':hover'] ={
+      backgroundColor:'lightgreen',
+      color:'black'
+    }
+  }
+const assignedClasses  = [];
+    if(this.state.employee.length <=2){
+      assignedClasses.push(classes.red);
+    }
+    if(this.state.employee.length <=1){
+      assignedClasses.push(classes.bold);
   }
 
   return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi Nasruddin, <br/> This is your first react App </h1>
-        <p>It's is paragraph</p>
+        <p className={classes.join(' ')}>It's is paragraph</p>
         <button style={btnStyle}
         // onClick={() => this.changeNameHandler('Jallu khana')}
         onClick={this.showtoggleEmployeeHandler}
@@ -78,4 +96,4 @@ changeNameEventHandler = (event, id ) => {
 
 };
 
-export default App ;
+export default Radium(App) ;
