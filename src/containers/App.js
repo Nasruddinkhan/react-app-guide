@@ -1,12 +1,12 @@
 import React, {  Component } from 'react';
 import classes from './App.css';
 //import Radium from 'radium'
-import Emp from '../components/Employees/Emp';
+import Employees from '../components/Employees/Emp';
 import Cockpit from '../components/Cockpit/Cockpit';
 class App  extends Component  {
   constructor( props ) {
    super(props);
-   console.log('App constructor');
+   console.log('[App.js] constructor');
   }
   state  = {
     employee: [
@@ -17,9 +17,10 @@ class App  extends Component  {
     showEmployee: false
   };
   static getDerivedStateFromProps( props, state ) {
-    console.log('App getDerivedStateFromProps');
+    console.log('[App.js] getDerivedStateFromProps');
     return state;
   }
+  
 deleteEmployeeHandler = (empIndex) => {
   console.log(empIndex);
   const employee = [...this.state.employee];
@@ -46,18 +47,23 @@ showtoggleEmployeeHandler = () =>{
   });
 };
 componentDidMount(){
-  console.log('App component mount')
+  console.log('[App.js] component mount')
 }
-componentWillMount(){
-  console.log('componentDidMount');
-}
+shouldComponentUpdate(nextProps, nextState){
+  console.log('[App.js] shouldComponentUpdate');
+  return true;
+ }
+ componentDidUpdate(){
+  console.log(' [App.js] componentDidUpdate')
+
+ }
  render() {
-  console.log(' App render')
+  console.log(' [App.js] render')
   let  employee = null;
   if ( this.state.showEmployee ) {
     employee = (
               <div>
-                <Emp emp={this.state.employee}
+                <Employees emp={this.state.employee}
                           clicked={this.deleteEmployeeHandler}
                           changed = {this.changeNameEventHandler}/>
               </div>
