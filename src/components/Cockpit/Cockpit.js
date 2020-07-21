@@ -1,8 +1,27 @@
-import React from 'react';
+import React ,{useEffect} from 'react';
 import classes from './Cockpit.css'
 
-const cockpit = (props) =>{
+const Cockpit = (props) =>{
+
     console.log(props);
+
+    useEffect(()=>{
+      console.log('[cockpit.js] useEffect');
+      const timer =  setTimeout(()=>{
+        alert('saved employee data');
+      },1000);
+      return ()=>{
+        clearTimeout(timer);
+        console.log('[Cockpit.js] cleanup work in useEffect');
+      }
+    },[]); //[] it's work only one  time //props.employee)
+
+    useEffect(()=>{
+      console.log('[cockpit.js] useEffect 2');
+      return () => {
+        console.log('[Cockpit.js] cleanup work in 2nd useEffect ');
+      }
+    });
     const assignedClasses  = [];
     let btnClass = '';
     if(props.showEmployee)
@@ -27,4 +46,4 @@ return (
     );
 };
 
-export default cockpit;
+export default Cockpit;
